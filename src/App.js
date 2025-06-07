@@ -56,33 +56,43 @@ function App() {
     .filter(ad => ad.campaign.toLowerCase().includes(searchTerm.toLowerCase()))
 
   return (
-    <div>
-      <h1>Ad Dashboard</h1>
+    <div className='max-w-6xl mx-auto px-4 py-8'>
+      <h1 className='text-3xl font-bold mb-6 text-center'>Ad Dashboard</h1>
 
-      {/* Sort Spend*/}
-      <label htmlFor='sortOrder'>Sort by Spend:</label>
-      <select
-        id='sortOrder'
-        value={sortOrder || ''}
-        onChange={e => setSortOrder(e.target.value || null)}
-      >
-        <option value=''>Clear Sort</option>
-        <option value='asc'>Ascending</option>
-        <option value='desc'>Descending</option>
-      </select>
+      <div className='mb-6 space-y-4'>
+        {/* Sort Spend*/}
+        <div>
+          <label htmlFor='sortOrder' className='block font-medium mb-1'>Sort by Spend:</label>
+          <select
+            id='sortOrder'
+            value={sortOrder || ''}
+            onChange={e => setSortOrder(e.target.value || null)}
+            className='block w-full max-w-xs border border-gray-300 rounded-md shadow-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
+          >
+            <option value=''>Clear Sort</option>
+            <option value='asc'>Ascending</option>
+            <option value='desc'>Descending</option>
+          </select>
+        </div>
 
-      {/* Search Campaign Name*/}
-      <label htmlFor='search'>Search by Campaign Name:</label>
-      <input
-        id='search'
-        type='text'
-        value={searchTerm}
-        onChange={ e => setSearchTerm(e.target.value)}
-        placeholder='Enter campaign name'
-      />
+        {/* Search Campaign Name*/}
+        <div>
+          <label htmlFor='search' className='block font-medium mb-1'>Search by Campaign Name:</label>
+          <input
+            id='search'
+            type='text'
+            value={searchTerm}
+            onChange={ e => setSearchTerm(e.target.value)}
+            placeholder='Enter campaign name'
+            className='block w-full max-w-xs border border-gray-300 rounded-md shadow-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
+          />
+        </div>
+      </div>
 
       {/* Render Filtered & Sorted Ads */}
-      {sortedFilteredAds.map((ad, index) => <AdCard key={index} ad={ad} />)}
+      <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+        {sortedFilteredAds.map((ad, index) => <AdCard key={index} ad={ad} />)}
+      </div>
     </div>
   )
 }

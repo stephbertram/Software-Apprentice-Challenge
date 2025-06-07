@@ -2,14 +2,14 @@ import React from 'react';
 
 function AdCard ({ ad }) {
     return (
-        <div>
-            <h2><strong>Campaign:</strong> {ad.campaign}</h2>
-            <p>Adset: {ad.adset}</p>
-            <p>Creative: {ad.creative}</p>
-            <p>Spend: ${ad.spend.toLocaleString()}</p>
-            <p>Impressions: {ad.impressions.toLocaleString()}</p>
-            <p>Clicks: {ad.clicks.toLocaleString()}</p>
-            <p>Results: {ad.results.toLocaleString()}</p>
+        <div className='bg-white shadow-md rounded-lg p-4 mb-4 border border-gray-200'>
+            <h2 className='text-lg font-semibold mb-2'>Campaign: {ad.campaign}</h2>
+            <p><span className='font-bold'>Adset:</span> {ad.adset}</p>
+            <p><span className='font-bold'>Creative:</span> {ad.creative}</p>
+            <p><span className='font-bold'>Spend:</span> ${ad.spend.toLocaleString()}</p>
+            <p><span className='font-bold'>Impressions:</span> {ad.impressions.toLocaleString()}</p>
+            <p><span className='font-bold'>Clicks:</span> {ad.clicks.toLocaleString()}</p>
+            <p><span className='font-bold'>Results:</span> {ad.results.toLocaleString()}</p>
         </div>
     )
 }
