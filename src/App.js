@@ -3,6 +3,7 @@ import AdCard from './AdCard';
 
 function App() {
   const [ads, setAds] = useState([]);
+  const [sortOrder, setSortOrder] = useState(null);
 
   const standardizeAd = (ad, gaData) => {
     const campaign = ad.campaign || ad.campaign_name || ad.utm_campaign || 'Unknown'
@@ -50,7 +51,23 @@ function App() {
   return (
     <div>
       <h1>Ad Dashboard</h1>
-      {ads.map((ad, index) => <AdCard key={index} ad={ad} />)}
+      <label htmlFor='sortOrder'>Sort by Spend:</label>
+      <select
+        id='sortOrder'
+        value={sortOrder || ''}
+        onChange={e => setSortOrder(e.target.value || null)}
+      >
+        <option value=''>Clear Sort</option>
+        <option value='asc'>Ascending</option>
+        <option value='desc'>Descending</option>
+      </select>
+      {[...ads]
+        .sort((a,b) => {
+          if (sortOrder === 'asc') return a.spend - b.spend
+          if (sortOrder === 'desc') return b.spend - a.spend
+          return 0
+        })
+      .map((ad, index) => <AdCard key={index} ad={ad} />)}
       {/* <pre>{JSON.stringify(ads, null, 2)}</pre> */}
     </div>
   )
