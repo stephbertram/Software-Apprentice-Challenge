@@ -6,10 +6,10 @@ function AdCard ({ ad }) {
             <h2><strong>Campaign:</strong> {ad.campaign}</h2>
             <p>Adset: {ad.adset}</p>
             <p>Creative: {ad.creative}</p>
-            <p>Spend: ${ad.spend}</p>
-            <p>Impressions: {ad.impressions}</p>
-            <p>Clicks: {ad.clicks}</p>
-            <p>Results: {ad.results}</p>
+            <p>Spend: ${ad.spend.toLocaleString()}</p>
+            <p>Impressions: {ad.impressions.toLocaleString()}</p>
+            <p>Clicks: {ad.clicks.toLocaleString()}</p>
+            <p>Results: {ad.results.toLocaleString()}</p>
         </div>
     )
 }

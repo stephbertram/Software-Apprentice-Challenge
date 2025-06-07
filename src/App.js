@@ -4,6 +4,7 @@ import AdCard from './AdCard';
 function App() {
   const [ads, setAds] = useState([]);
   const [sortOrder, setSortOrder] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const standardizeAd = (ad, gaData) => {
     const campaign = ad.campaign || ad.campaign_name || ad.utm_campaign || 'Unknown'
@@ -16,8 +17,6 @@ function App() {
       entry.utm_medium === adset &&
       entry.utm_content === creative
     )
-
-    // console.log('Matched GA:', matchedGA)
     
     return {
       campaign,
@@ -48,9 +47,19 @@ function App() {
       .catch(error => console.error('Error fetching data:', error))
   }, [])
 
+  const sortedFilteredAds = [...ads]
+    .sort((a,b) => {
+      if (sortOrder === 'asc') return a.spend - b.spend
+      if (sortOrder === 'desc') return b.spend - a.spend
+      return 0
+    })
+    .filter(ad => ad.campaign.toLowerCase().includes(searchTerm.toLowerCase()))
+
   return (
     <div>
       <h1>Ad Dashboard</h1>
+
+      {/* Sort Spend*/}
       <label htmlFor='sortOrder'>Sort by Spend:</label>
       <select
         id='sortOrder'
@@ -61,14 +70,19 @@ function App() {
         <option value='asc'>Ascending</option>
         <option value='desc'>Descending</option>
       </select>
-      {[...ads]
-        .sort((a,b) => {
-          if (sortOrder === 'asc') return a.spend - b.spend
-          if (sortOrder === 'desc') return b.spend - a.spend
-          return 0
-        })
-      .map((ad, index) => <AdCard key={index} ad={ad} />)}
-      {/* <pre>{JSON.stringify(ads, null, 2)}</pre> */}
+
+      {/* Search Campaign Name*/}
+      <label htmlFor='search'>Search by Campaign Name:</label>
+      <input
+        id='search'
+        type='text'
+        value={searchTerm}
+        onChange={ e => setSearchTerm(e.target.value)}
+        placeholder='Enter campaign name'
+      />
+
+      {/* Render Filtered & Sorted Ads */}
+      {sortedFilteredAds.map((ad, index) => <AdCard key={index} ad={ad} />)}
     </div>
   )
 }
