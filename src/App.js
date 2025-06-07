@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import AdCard from './AdCard';
 
 function App() {
   const [ads, setAds] = useState([]);
@@ -33,8 +34,9 @@ function App() {
 
   return (
     <div>
-      <h1>Ads</h1>
-      <pre>{JSON.stringify(ads, null, 2)}</pre>
+      <h1>Ad Dashboard</h1>
+      {ads.map((ad, index) => <AdCard key={index} ad={ad} />)}
+      {/* <pre>{JSON.stringify(ads, null, 2)}</pre> */}
     </div>
   )
 }
